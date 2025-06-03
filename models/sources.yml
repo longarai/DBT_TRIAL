@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Dados brutos do ambiente bronze"
+    database: PRD_01_BRONZE
+    schema: dbt_glongarai
+    tables:
+      - name: raw_venda
+        description: "Tabela com dados brutos de vendas"
+        columns:
+          - name: ID_VENDA
+            description: "Identificador único da venda"
+          - name: DATA_VENDA
+            description: "Data da venda"
+          - name: ID_CLIENTE
+            description: "Identificador do cliente"
+          - name: ID_PRODUTO
+            description: "Identificador do produto"
+          - name: QUANTIDADE
+            description: "Quantidade vendida"
+          - name: VALOR_UNITARIO
+            description: "Valor unitário do produto"
+          - name: VALOR_TOTAL
+            description: "Valor total da venda"
+          - name: CANAL_VENDA
+            description: "Canal utilizado para a venda"
