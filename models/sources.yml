@@ -3,10 +3,10 @@ version: 2
 sources:
   - name: bronze
     description: "Dados brutos do ambiente bronze"
-    database: PRD_01_BRONZE
-    schema: dbt_glongarai
+    database: PRD_01_BRONZE     # Correto, bate com o Snowflake
+    schema: public             # ALTERADO AQUI para 'public'
     tables:
-      - name: raw_venda
+      - name: raw_venda          # Correto, bate com o Snowflake
         description: "Tabela com dados brutos de vendas"
         columns:
           - name: ID_VENDA
