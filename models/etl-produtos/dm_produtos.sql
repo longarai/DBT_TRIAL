@@ -1,3 +1,5 @@
+/* 12/06/2025 17:46 */
+
 -- models/etl-produtos/dm_produtos.sql
 WITH web_produtocodbarras AS (
     SELECT
