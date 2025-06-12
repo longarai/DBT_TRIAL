@@ -3,7 +3,7 @@ WITH web_produtocodbarras AS (
     SELECT
         produto_id,
         codbarras
-    FROM {{ source('oracle_dev', 'web_produtocodbarras') }}
+    FROM {{ source('oracle', 'web_produtocodbarras') }}
     -- Lógica para pegar o código de barras principal ou o mais recente
     QUALIFY ROW_NUMBER() OVER (PARTITION BY produto_id ORDER BY st_principal DESC, id DESC) = 1
 )
@@ -68,26 +68,27 @@ SELECT
     pa.nome AS produtoagrupamento_nome,
     p.st_ocultahistoricovenda AS flag_considera_historico,
     p.tipo_listacontrolado AS lista_controlado_id,
-    tv4.vlrtexto AS lista_controlado_descricao
+    tv4.vlrtexto AS lista_controlado_descricao,
+    'prod' ambiente
 -- select count(1) qtd
-FROM {{ source('oracle_dev', 'web_produto') }} p
-    INNER JOIN {{ source('oracle_dev', 'web_pessoa') }} lab ON p.laboratorio_id = lab.id
-    INNER JOIN {{ source('oracle_dev', 'web_prodsubgrupo') }} sg ON p.prodsubgrupocom_id = sg.id
-    INNER JOIN {{ source('oracle_dev', 'web_prodgrupo') }} pg ON sg.prodgrupo_id = pg.id
-    LEFT JOIN {{ source('oracle_dev', 'produtos') }} sp ON p.id = sp.cdproduto
-    LEFT JOIN {{ source('oracle_dev', 'wtipopedido') }} ped ON sp.cdtipoped = ped.cdtipoped
-    LEFT JOIN {{ source('oracle_dev', 'web_familiaprodutofiscal') }} ff ON p.familiaprodutofiscal_id = ff.id
-    LEFT JOIN {{ source('oracle_dev', 'web_prodlinha') }} ln ON p.linha_id = ln.id
-    LEFT JOIN {{ source('oracle_dev', 'web_produtoagrupamento') }} pa ON sg.produtoagrupamento_id = pa.id
-    LEFT JOIN {{ source('oracle_dev', 'web_prodsubgrupo') }} sgf ON p.prodsubgrupofis_id = sgf.id
-    LEFT JOIN {{ source('oracle_dev', 'web_unidademedida') }} um ON p.comercial_unidademedia_id = um.id
-    LEFT JOIN {{ source('oracle_dev', 'web_ncm') }} ncm ON p.ncm_id = ncm.id
-    LEFT JOIN {{ source('oracle_dev', 'web_classeterapeutica') }} ct ON p.classeterapeutica_id = ct.id
-    LEFT JOIN {{ source('oracle_dev', 'web_pbmcartao') }} pbm ON p.pbmcartao_id = pbm.id
-    LEFT JOIN {{ source('oracle_dev', 'web_tabelavalor') }} tv2 ON p.tp_cx_sep_interno = tv2.id
-    LEFT JOIN {{ source('oracle_dev', 'web_tabelavalor') }} tv3 ON p.origem_mercadoria = tv3.id
-    LEFT JOIN {{ source('oracle_dev', 'web_prodcategoria_ecom') }} pce ON p.prodcatgoria_ecom_id = pce.id
-    LEFT JOIN {{ source('oracle_dev', 'web_tabelavalor') }} tv4 ON p.tipo_listacontrolado = tv4.id
+FROM {{ source('oracle', 'web_produto') }} p
+    INNER JOIN {{ source('oracle', 'web_pessoa') }} lab ON p.laboratorio_id = lab.id
+    INNER JOIN {{ source('oracle', 'web_prodsubgrupo') }} sg ON p.prodsubgrupocom_id = sg.id
+    INNER JOIN {{ source('oracle', 'web_prodgrupo') }} pg ON sg.prodgrupo_id = pg.id
+    LEFT JOIN {{ source('oracle', 'produtos') }} sp ON p.id = sp.cdproduto
+    LEFT JOIN {{ source('oracle', 'wtipopedido') }} ped ON sp.cdtipoped = ped.cdtipoped
+    LEFT JOIN {{ source('oracle', 'web_familiaprodutofiscal') }} ff ON p.familiaprodutofiscal_id = ff.id
+    LEFT JOIN {{ source('oracle', 'web_prodlinha') }} ln ON p.linha_id = ln.id
+    LEFT JOIN {{ source('oracle', 'web_produtoagrupamento') }} pa ON sg.produtoagrupamento_id = pa.id
+    LEFT JOIN {{ source('oracle', 'web_prodsubgrupo') }} sgf ON p.prodsubgrupofis_id = sgf.id
+    LEFT JOIN {{ source('oracle', 'web_unidademedida') }} um ON p.comercial_unidademedia_id = um.id
+    LEFT JOIN {{ source('oracle', 'web_ncm') }} ncm ON p.ncm_id = ncm.id
+    LEFT JOIN {{ source('oracle', 'web_classeterapeutica') }} ct ON p.classeterapeutica_id = ct.id
+    LEFT JOIN {{ source('oracle', 'web_pbmcartao') }} pbm ON p.pbmcartao_id = pbm.id
+    LEFT JOIN {{ source('oracle', 'web_tabelavalor') }} tv2 ON p.tp_cx_sep_interno = tv2.id
+    LEFT JOIN {{ source('oracle', 'web_tabelavalor') }} tv3 ON p.origem_mercadoria = tv3.id
+    LEFT JOIN {{ source('oracle', 'web_prodcategoria_ecom') }} pce ON p.prodcatgoria_ecom_id = pce.id
+    LEFT JOIN {{ source('oracle', 'web_tabelavalor') }} tv4 ON p.tipo_listacontrolado = tv4.id
     LEFT JOIN web_produtocodbarras bc ON p.id = bc.produto_id
 
 {% if is_incremental() %}

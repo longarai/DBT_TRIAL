@@ -18,18 +18,27 @@ clean-targets:
 
 models:
   FSJ_DATA_FOUNDATION:
-    etl-fornecedores:
-      +materialized: incremental
-    etl-vendas:
-      +materialized: incremental
-    etl-vendas-pagamentos:
-      +materialized: incremental
-    etl-devolucoes:
-      +materialized: incremental    
-    comprasdemandaconfig:
-      +materialized: table
+    # etl-fornecedores:
+    #   +materialized: incremental
+    # etl-vendas:
+    #   +materialized: incremental
+    # etl-vendas-pagamentos:
+    #   +materialized: incremental
+    # etl-devolucoes:
+    #   +materialized: incremental
+    # comprasdemandaconfig:
+    #   +materialized: table
+    # etl-produtos:
+    #   +materialized: incremental
+    # silver:
+    #   +materialized: table
+    #   +schema: silver
+    # gold:
+    #   +materialized: view
+    #   +schema: gold
     etl-produtos:
-      +materialized: incremental
+       +materialized: incremental
+       +schema: silver
 
 vars:
   'dbt_date:time_zone': 'America/São Paulo'
