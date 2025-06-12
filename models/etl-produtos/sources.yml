@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: oracle_dev
+    database: FSJ_PRD_LZ
+    schema: ORACLE_DEV
+    tables:
+      - name: web_produto
+      - name: produtos
+      - name: wtipopedido
+      - name: web_familiaprodutofiscal
+      - name: web_pessoa
+      - name: web_prodlinha
+      - name: web_prodsubgrupo
+      - name: web_produtoagrupamento
+      - name: web_unidademedida
+      - name: web_ncm
+      - name: web_classeterapeutica
+      - name: web_pbmcartao
+      - name: web_tabelavalor
+      - name: web_prodcategoria_ecom
+      - name: web_produtocodbarras
+      - name: web_prodgrupo
