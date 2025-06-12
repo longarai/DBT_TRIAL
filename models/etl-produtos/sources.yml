@@ -1,9 +1,9 @@
 version: 2
 
 sources:
-  - name: oracle_dev
+  - name: oracle
     database: FSJ_PRD_LZ
-    schema: ORACLE_DEV
+    schema: ORACLE
     tables:
       - name: web_produto
       - name: produtos
