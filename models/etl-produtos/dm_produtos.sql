@@ -71,7 +71,7 @@ SELECT
     p.st_ocultahistoricovenda AS flag_considera_historico,
     p.tipo_listacontrolado AS lista_controlado_id,
     tv4.vlrtexto AS lista_controlado_descricao,
-    'prod' ambiente
+    concat('teste ', cast(convert_timezone('Brazil/East', CURRENT_TIMESTAMP) as varchar))   ambiente
 -- select count(1) qtd
 FROM {{ source('oracle', 'web_produto') }} p
     INNER JOIN {{ source('oracle', 'web_pessoa') }} lab ON p.laboratorio_id = lab.id
