@@ -1,0 +1,32 @@
+version: 2
+
+sources:
+  - name: oracle_source
+    description: "Fonte de dados do sistema Oracle legado."
+    database: FSJ_PRD_LZ
+    schema: ORACLE
+    tables:
+      - name: PRODUCTS
+        description: "Tabela de produtos de origem."
+
+models:
+  - name: stg_products
+    description: "Tabela de staging para produtos. Faz a limpeza básica, renomeia colunas para o padrão do projeto e converte tipos. Uma linha por produto."
+    columns:
+      - name: product_id
+        description: "Chave primária do produto (antigo ID_PRODUTO)."
+        tests:
+          - unique
+          - not_null
+
+      - name: product_name
+        description: "Nome do produto (antigo NOME_PRODUTO)."
+
+      - name: price
+        description: "Preço do produto (antigo PRECO)."
+
+      - name: insertion_date
+        description: "Data de criação do registro do produto (antigo DATA_INSERCAO)."
+
+      - name: last_modified_date
+        description: "Data da última alteração do registro (antigo DATA_ALTERACAO/ALTERACAO)."
