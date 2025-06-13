@@ -38,7 +38,6 @@ models:
     #   +schema: gold
     etl-produtos:
        +materialized: incremental
-       +schema: silver
 
 vars:
   'dbt_date:time_zone': 'America/São Paulo'
